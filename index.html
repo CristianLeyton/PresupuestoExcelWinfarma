@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presupuestos Winfarma</title>
+  <link rel="stylesheet" href="src/output.css"> <!-- Enlace a Tailwind CSS -->
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    #presupuestos-table th,
+    #presupuestos-table td {
+      text-align: center;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f2f2f2;
+      /* Ejemplo de estilo: fondo gris claro */
+    }
+
+    .disabled {
+      cursor: not-allowed;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+
+<body class="container mx-auto py-4">
+  <h1 class="font-bold text-lg">Presupuestos Winfarma</h1>
+  <div class="border my-2 p-3 rounded">
+    <h2 class="text-sm font-semibold">Filtrar por Fecha:</h2>
+    <div class="flex items-center gap-3">
+      <label for="start-date">Desde:
+        <input class="border text-center rounded" type="date" id="start-date">
+      </label>
+      <label for="end-date">Hasta:
+        <input class="border text-center rounded" type="date" id="end-date">
+      </label>
+      <button id="filter-btn"
+        class="bg-indigo-500 text-center py-1 px-2 text-sm text-white font-semibold rounded active:scale-95">Aplicar
+        filtro</button>
+    </div>
+  </div>
+  <h2 class="font-semibold">Presupuestos:</h2>
+  <table id="presupuestos-table" class="border rounded">
+    <thead>
+      <tr class="bg-indigo-600 text-white font-semibold">
+        <th>Número</th>
+        <th>Usuario</th>
+        <th>Fecha - Hora</th>
+        <th>Detalles</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <hr class="mt-8">
+
+  <div class="details">
+    <div class="flex justify-between items-center py-4">
+      <h2 class="font-semibold">Detalles del Presupuesto <span class="text-indigo-600">N° <span
+            id="presupuestoNum"></span></span>:</h2>
+      <button
+        class="flex items-center justify-center gap-2 bg-green-600 text-center py-1 px-2 text-sm text-white font-semibold rounded active:scale-95 disabled"
+        id="exportar-btn" style="margin-top: 10px;">Exportar<i><svg xmlns="http://www.w3.org/2000/svg" x="0px"
+            y="0px" width="16" height="16" style="fill: currentColor;" viewBox="0 0 50 50">
+            <path
+              d="M 28.8125 0.03125 L 0.8125 5.34375 C 0.339844 5.433594 0 5.863281 0 6.34375 L 0 43.65625 C 0 44.136719 0.339844 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 28.875 49.980469 28.9375 50 29 50 C 29.230469 50 29.445313 49.929688 29.625 49.78125 C 29.855469 49.589844 30 49.296875 30 49 L 30 1 C 30 0.703125 29.855469 0.410156 29.625 0.21875 C 29.394531 0.0273438 29.105469 -0.0234375 28.8125 0.03125 Z M 32 6 L 32 13 L 34 13 L 34 15 L 32 15 L 32 20 L 34 20 L 34 22 L 32 22 L 32 27 L 34 27 L 34 29 L 32 29 L 32 35 L 34 35 L 34 37 L 32 37 L 32 44 L 47 44 C 48.101563 44 49 43.101563 49 42 L 49 8 C 49 6.898438 48.101563 6 47 6 Z M 36 13 L 44 13 L 44 15 L 36 15 Z M 6.6875 15.6875 L 11.8125 15.6875 L 14.5 21.28125 C 14.710938 21.722656 14.898438 22.265625 15.0625 22.875 L 15.09375 22.875 C 15.199219 22.511719 15.402344 21.941406 15.6875 21.21875 L 18.65625 15.6875 L 23.34375 15.6875 L 17.75 24.9375 L 23.5 34.375 L 18.53125 34.375 L 15.28125 28.28125 C 15.160156 28.054688 15.035156 27.636719 14.90625 27.03125 L 14.875 27.03125 C 14.8125 27.316406 14.664063 27.761719 14.4375 28.34375 L 11.1875 34.375 L 6.1875 34.375 L 12.15625 25.03125 Z M 36 20 L 44 20 L 44 22 L 36 22 Z M 36 27 L 44 27 L 44 29 L 36 29 Z M 36 35 L 44 35 L 44 37 L 36 37 Z">
+            </path>
+          </svg></i> </button>
+    </div>
+    <table id="detalles-table" class="border rounded">
+      <thead class="">
+        <tr class="bg-green-600 text-white font-semibold">
+          <th class='text-center'>Cantidad</th>
+          <th>Descripción</th>
+          <th>Precio Unitario</th>
+          <th>Total Renglón</th>
+        </tr>
+      </thead>
+      <tbody class="text-left">
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="font-semibold"> Total: </td>
+          <td class="font-semibold" id="totalPresupuesto"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "presupuestoexcel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "npx postcss src/styles.css -o src/output.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "electron": "^31.3.0",
+    "electron-builder": "^24.13.3",
+    "postcss": "^8.4.41",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.10"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "node-firebird": "^1.1.8",
+    "xlsx": "^0.18.5"
+  }
+}
