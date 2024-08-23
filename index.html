@@ -53,9 +53,10 @@
     </div>
   </div>
   <h2 class="font-semibold">Presupuestos:</h2>
-  <table id="presupuestos-table" class="border rounded">
-    <thead>
-      <tr class="bg-indigo-600 text-white font-semibold">
+  <div class="h-[310px] overflow-y-scroll border resize-y min-h-5 relative">
+  <table id="presupuestos-table" class="">
+    <thead class="sticky top-0">
+      <tr class="bg-indigo-600 text-white font-semibold ">
         <th>Número</th>
         <th>Usuario</th>
         <th>Fecha - Hora</th>
@@ -65,6 +66,7 @@
     <tbody>
     </tbody>
   </table>
+</div>
 
   <hr class="mt-8">
 
@@ -81,8 +83,9 @@
             </path>
           </svg></i> </button>
     </div>
-    <table id="detalles-table" class="border rounded">
-      <thead class="">
+    <div class="h-[310px] overflow-y-scroll border resize-y min-h-5 relative">
+    <table id="detalles-table" class="">
+      <thead class="sticky top-0">
         <tr class="bg-green-600 text-white font-semibold">
           <th class='text-center'>Cantidad</th>
           <th>Descripción</th>
@@ -101,6 +104,7 @@
         </tr>
       </tfoot>
     </table>
+    </div>
   </div>
 
   <script src="renderer.js"></script>

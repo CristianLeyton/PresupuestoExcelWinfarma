@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
 const path = require('path');
 const Firebird = require('node-firebird');
 const XLSX = require('xlsx');
@@ -8,15 +8,38 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1024,
+    width: 800,
     height: 768,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   });
 
-  // Quitar el menú superior
-  mainWindow.setMenu(null);
+  // Crear el menú personalizado
+  const menu = Menu.buildFromTemplate([
+    {
+      label: 'Archivo',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: 'CmdOrCtrl+R', // Puedes cambiar el atajo de teclado si lo deseas
+          click: () => {
+            mainWindow.reload();
+          },
+        },
+        {
+          label: 'Exit',
+          accelerator: 'CmdOrCtrl+Q', // Puedes cambiar el atajo de teclado si lo deseas
+          click: () => {
+            app.quit();
+          },
+        },
+      ],
+    },
+  ]);
+
+  // Cambiar el menú superior
+  mainWindow.setMenu(menu);
 
   mainWindow.loadFile('index.html');
 }
