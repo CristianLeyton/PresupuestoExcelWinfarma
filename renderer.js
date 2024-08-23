@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', async () => {
-  const presupuestos = await window.api.getPresupuestos();
+  let presupuestos = await window.api.getPresupuestos();
   const tableBody = document.querySelector('#presupuestos-table tbody');
 
 
@@ -20,28 +20,32 @@ window.addEventListener('DOMContentLoaded', async () => {
   mostrarPresupuestos(presupuestosFiltrados);
 
   // Manejar el filtro por fecha cuando el usuario lo aplica manualmente
-  document.querySelector('#filter-btn').addEventListener('click', () => {
-    const startDate = document.querySelector('#start-date').value;
-    const endDate = document.querySelector('#end-date').value;
-
-    console.log('Rango de fechas input:', startDate, endDate);
-
-    // Convertir a Date y normalizar para poder comparar
-    const start = normalizarFechaUTC(new Date(startDate));
-    const end = normalizarFechaUTC(new Date(endDate));
-
-    console.log('Rango de fechas:', start, end);
-
-    // Filtrar presupuestos por rango de fechas
-    const presupuestosFiltrados = presupuestos.filter(presupuesto => {
-      console.log('Fecha del presupuesto sin normalizar:', presupuesto.FECHA);
-      const fechaPresupuesto = normalizarFecha(presupuesto.FECHA);
-      console.log('Fecha del presupuesto:', fechaPresupuesto);
-      return fechaPresupuesto >= start && fechaPresupuesto <= end;
-    });
-
-    // Mostrar presupuestos filtrados
-    mostrarPresupuestos(presupuestosFiltrados);
+  document.querySelector('#filter-btn').addEventListener('click', async () => {
+    try {
+      // Obtener presupuestos actualizados desde la base de datos
+      if (document.querySelector('#end-date').value == today) {
+        presupuestos = await window.api.getPresupuestos();
+        console.log('Actualiza la consulta de los presupuestos')
+      }
+  
+      const startDate = document.querySelector('#start-date').value;
+      const endDate = document.querySelector('#end-date').value;
+  
+      // Convertir a Date y normalizar para poder comparar
+      const start = normalizarFechaUTC(new Date(startDate));
+      const end = normalizarFechaUTC(new Date(endDate));
+  
+      // Filtrar presupuestos por rango de fechas
+      const presupuestosFiltrados = presupuestos.filter(presupuesto => {
+        const fechaPresupuesto = normalizarFecha(presupuesto.FECHA);
+        return fechaPresupuesto >= start && fechaPresupuesto <= end;
+      });
+  
+      // Mostrar presupuestos filtrados
+      mostrarPresupuestos(presupuestosFiltrados);
+    } catch (error) {
+      console.error('Error al obtener los presupuestos:', error);
+    }
   });
 });
 
@@ -138,4 +142,3 @@ async function exportarDetalles(detalles, idPresupuesto) {
     alert('Exportación cancelada');
   }
 }
-  
