@@ -566,8 +566,9 @@ video {
 .h-\[310px\] {
   height: 310px;
 }
-.min-h-5 {
-  min-height: 1.25rem;
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .border-collapse {
   border-collapse: collapse;
