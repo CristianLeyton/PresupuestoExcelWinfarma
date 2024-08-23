@@ -47,9 +47,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 function obtenerFechaLocal() {
   const ahora = new Date();
-  const año = ahora.getUTCFullYear();
-  const mes = String(ahora.getUTCMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11
-  const dia = String(ahora.getUTCDate()).padStart(2, '0');
+  const año = ahora.getFullYear();
+  const mes = String(ahora.getMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11
+  const dia = String(ahora.getDate()).padStart(2, '0');
   return `${año}-${mes}-${dia}`; // Formato YYYY-MM-DD
 }
 
